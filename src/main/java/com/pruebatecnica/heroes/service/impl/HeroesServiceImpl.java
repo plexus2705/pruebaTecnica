@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pruebatecnica.heroes.anotaciones.Tiempo;
 import com.pruebatecnica.heroes.entity.Heroes;
 import com.pruebatecnica.heroes.repository.HeroesRepository;
 import com.pruebatecnica.heroes.service.HeroesService;
@@ -43,8 +44,10 @@ public class HeroesServiceImpl implements HeroesService{
 	@Override
 	public Optional<Heroes> getHeroe(long id) {
 		
+		long tiempoInicio;
 		
-		return heroesRepository.findById(id);  
+		Optional<Heroes> respuesta = heroesRepository.findById(id); 
+		return  respuesta;
 	}
 
 	/**

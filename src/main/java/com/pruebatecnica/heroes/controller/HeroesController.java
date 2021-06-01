@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pruebatecnica.heroes.anotaciones.Tiempo;
 import com.pruebatecnica.heroes.entity.Heroes;
 import com.pruebatecnica.heroes.exceptions.HeroeNotFoundException;
 import com.pruebatecnica.heroes.service.HeroesService;
@@ -34,7 +35,8 @@ public class HeroesController {
 	 * @return the all heroes
 	 */
 	@GetMapping("/heroes")
-	private ResponseEntity<List<Heroes>> getAllHeroes() {
+	@Tiempo
+	public ResponseEntity<List<Heroes>> getAllHeroes() {
 		List<Heroes> respuesta = heroesService.getAllHeroes();
 		if(respuesta.isEmpty()) {
 			return ResponseEntity.notFound().build();
@@ -52,7 +54,9 @@ public class HeroesController {
 	 * @return the heroe
 	 */
 	@GetMapping("/heroe/{id}")
-	private Heroes getHeroe(@PathVariable("id") long id) {
+	@Tiempo
+	public Heroes getHeroe(@PathVariable("id") long id) {
+		
 		return heroesService.getHeroe(id)
 				.orElseThrow(() -> new HeroeNotFoundException(id));
 	}
@@ -64,7 +68,8 @@ public class HeroesController {
 	 * @return the response entity
 	 */
 	@DeleteMapping("/deleteHeroe/{id}")
-	private ResponseEntity<?> deleteHeroe(@PathVariable("id") long id) {
+	@Tiempo
+	public ResponseEntity<?> deleteHeroe(@PathVariable("id") long id) {
 		
 		heroesService.getHeroe(id)
 			.orElseThrow(() -> new HeroeNotFoundException(id));
@@ -81,7 +86,8 @@ public class HeroesController {
 	 * @return the response entity
 	 */
 	@PostMapping("/saveHeroe")
-	private ResponseEntity<Heroes> saveHero(@RequestBody Heroes heroe) {
+	@Tiempo
+	public ResponseEntity<Heroes> saveHero(@RequestBody Heroes heroe) {
 		Heroes respuesta = heroesService.saveHeroe(heroe);
 		return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
 	}
@@ -93,7 +99,8 @@ public class HeroesController {
 	 * @return the heroes
 	 */
 	@PutMapping("/updateHero")
-	private Heroes updateHero(@RequestBody Heroes heroe) {
+	@Tiempo
+	public Heroes updateHero(@RequestBody Heroes heroe) {
 		return heroesService.getHeroe(heroe.getId()).map(h -> {
 			h.setNombre(heroe.getNombre());
 			return heroesService.updateHeroe(heroe);
@@ -108,7 +115,8 @@ public class HeroesController {
 	 * @return the heroes by coincidence
 	 */
 	@GetMapping("/heroesByCoincidence")
-	private  ResponseEntity<?> getHeroesByCoincidence(@PathVariable("param") String param) {
+	@Tiempo
+	public  ResponseEntity<?> getHeroesByCoincidence(@PathVariable("param") String param) {
 		List<Heroes> respuesta = heroesService.getHeroesByCoincidence(param);
 		if(respuesta.isEmpty()) {
 			return ResponseEntity.notFound().build();

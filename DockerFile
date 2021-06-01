@@ -1,0 +1,6 @@
+FROM Openjdk:8-jdk-alpine
+RUN addgroup -S spring && user -S spring
+USER spring:spring
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} heroes.1.0.jar
+ENTRYPOINT ["java","-jar","/heroes.1.0.jar"]
