@@ -5,12 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pruebatecnica.heroes.anotaciones.Tiempo;
@@ -23,12 +26,17 @@ import com.pruebatecnica.heroes.service.HeroesService;
  * The Class HeroesController.
  */
 @RestController
+@RequestMapping("/api")
+@CrossOrigin
 public class HeroesController {
 
 	/** The heroes service. */
 	@Autowired
 	private HeroesService heroesService;
-
+	
+	
+	
+	
 	/**
 	 * Gets the all heroes.
 	 *
@@ -67,6 +75,7 @@ public class HeroesController {
 	 * @param id the id
 	 * @return the response entity
 	 */
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/deleteHeroe/{id}")
 	@Tiempo
 	public ResponseEntity<?> deleteHeroe(@PathVariable("id") long id) {
@@ -85,6 +94,7 @@ public class HeroesController {
 	 * @param heroe the heroe
 	 * @return the response entity
 	 */
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/saveHeroe")
 	@Tiempo
 	public ResponseEntity<Heroes> saveHero(@RequestBody Heroes heroe) {
@@ -98,6 +108,7 @@ public class HeroesController {
 	 * @param heroe the heroe
 	 * @return the heroes
 	 */
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/updateHero")
 	@Tiempo
 	public Heroes updateHero(@RequestBody Heroes heroe) {
