@@ -27,7 +27,7 @@ import com.pruebatecnica.heroes.service.HeroesService;
  */
 @RestController
 @RequestMapping("/api")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class HeroesController {
 
 	/** The heroes service. */

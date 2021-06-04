@@ -34,7 +34,7 @@ import com.pruebatecnica.heroes.security.service.UsuarioService;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
 
 	@Autowired
@@ -70,7 +70,7 @@ public class AuthController {
 			roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
 		usuario.setRoles(roles);
 		usuarioService.save(usuario);
-		return new ResponseEntity("Usuario guardado", HttpStatus.CREATED);
+		return new ResponseEntity(usuario, HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/login")
