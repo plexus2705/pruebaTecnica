@@ -9,6 +9,11 @@ public class JwtDto {
 	private String token;
 
 	
+	
+	public JwtDto() {
+		super();
+	}
+
 	public JwtDto(String token) {
 		super();
 		this.token = token;

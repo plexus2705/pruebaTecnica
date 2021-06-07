@@ -1,5 +1,6 @@
 package com.pruebatecnica.heroes.security.controller;
 
+import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -87,5 +88,14 @@ public class AuthController {
 		JwtDto jwtDto = new JwtDto(jwt);
 		
 		return new ResponseEntity(jwtDto, HttpStatus.OK);
+	}
+	
+	@PostMapping("/refresh")
+	public ResponseEntity<JwtDto> refresh(@RequestBody JwtDto jwtDto) throws ParseException{
+		
+		String token = jwtProvider.refreshToken(jwtDto);
+		JwtDto jwt = new JwtDto(token);
+		return new ResponseEntity(jwt, HttpStatus.OK);
+		
 	}
 }
